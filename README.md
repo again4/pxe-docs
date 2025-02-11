@@ -185,7 +185,7 @@ tasksel tasksel/first multiselect standard, ssh-server
 d-i finish-install/reboot_in_progress note 
 ```
 
-Щоб пароль був у зашифрованому вигляді вставте цю команду
+Щоб пароль був у зашифрованому вигляді вставте цю команду, отримуйте хеш та вставте в preseed file 
 ```
 python3 -c "import crypt;print(crypt.crypt(input('clear-text pw: '), crypt.mksalt(crypt.METHOD_SHA512)))"
 ```
