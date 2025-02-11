@@ -104,7 +104,7 @@ systemctl enable tftp
 ```
 ## Налаштування preseed file 
 
-Cкопіюйте цей конфіг у файл /var/www/html/preseed/preseed.cfg. Замініть ip-адресу на вашу , там де буде розташований ваш репозиторій 
+Cкопіюйте цей конфіг у файл /var/www/html/preseed/preseed.cfg. Замініть ip-адресу на вашу , там де буде розташований ваш репозиторій.  
 ```
 d-i debian-installer/locale string en_US 
 d-i keyboard-configuration/xkb-keymap select us 
@@ -124,8 +124,12 @@ d-i debian-installer/allow_unauthenticated boolean true
 d-i mirror/country string manual 
 d-i mirror/http/hostname string 192.168.68.140 
 d-i mirror/http/directory string /debian 
-d-i mirror/http/proxy string d-i passwd/root-password password root 
+d-i mirror/http/proxy string
+d-i passwd/root-password password root 
 d-i passwd/root-password-again password root 
+# or encrypted using a crypt(3)  hash.
+#d-i passwd/root-password-crypted password [crypt(3) hash]
+
 
 d-i passwd/user-fullname string yura 
 d-i passwd/username string yura 
@@ -133,7 +137,7 @@ d-i passwd/username string yura
 # Normal user's password, either in clear text 
 d-i passwd/user-password password yura 
 d-i passwd/user-password-again password yura 
-
+#d-i passwd/user-password-crypted password [crypt(3) hash]
   
 d-i clock-setup/utc boolean true 
 
@@ -181,6 +185,10 @@ tasksel tasksel/first multiselect standard, ssh-server
 d-i finish-install/reboot_in_progress note 
 ```
 
+Щоб пароль був у зашифрованому вигляді вставте цю команду
+```
+python3 -c "import crypt;print(crypt.crypt(input('clear-text pw: '), crypt.mksalt(crypt.METHOD_SHA512)))"
+```
 Перезапустимо веб-сервер. Також при подальших змін в цьому файлі - треба перезапускати цей веб-сервер
 ```
 systemctl restart httpd
