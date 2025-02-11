@@ -185,6 +185,9 @@ d-i finish-install/reboot_in_progress note
 ```
 systemctl restart httpd
 ```
+```
+systemctl enable httpd
+```
 
 ## Створення локального debmirror
 
@@ -192,6 +195,9 @@ systemctl restart httpd
 
 ```
 apt install debmirror
+```
+```
+apt install httpd
 ```
 ```
 /usr/bin/debmirror --nosource -m --passive --host=deb.debian.org  --root=debian --method=http --progress --dist=bookworm --ignore-release-gpg --section=main,contrib,non-free,non-free-firmware --arch=amd64 /var/www/html/debian/ 
