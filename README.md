@@ -181,6 +181,11 @@ tasksel tasksel/first multiselect standard, ssh-server
 d-i finish-install/reboot_in_progress note 
 ```
 
+Перезапустимо веб-сервер. Також при подальших змін в цьому файлі - треба перезапускати цей веб-сервер
+```
+systemctl restart httpd
+```
+
 ## Створення локального debmirror
 
 Треба розгорнути ще одну машину на debian. За допомогою консольної утиліти debmirror ми відзеркалимо  частину official репи під нашу архітектуру. Також перед цим  треба сюди встановити веб сервер.  
