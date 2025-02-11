@@ -51,4 +51,26 @@ ln -s debian-installer/amd64/grubx64.efi .
 ```
 ln -s debian-installer/amd64/grub .
 ```
+Перезапустимо dhcp та включимо його за замовчуванням
+```
+systemctl restart dhcpd
+``` 
+```
+systemctl enable dhcpd
+```
 
+## Firewall
+
+Треба додати такі правила 
+```
+firewall-cmd --add-service=tftp --permanent
+```
+```
+firewall-cmd --add-service=dhcp --permanent
+```
+```
+firewall-cmd --add-service=http --permanent
+```
+```
+firewall-cmd --reload
+```
